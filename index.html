@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Yes or No</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin-top: 100px;
+            transition: background-color 0.5s;
+        }
+        #container {
+            position: relative;
+            display: inline-block;
+        }
+        button {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        #yes {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            z-index: 2;
+        }
+        #no {
+            background-color: #FF4C4C; /* Red */
+            color: white;
+            z-index: 1;
+        }
+        #no:hover {
+            background-color: #D43F3F; /* Darker red */
+        }
+        /* Full-screen effect */
+        .full-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            font-size: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Will you be my Valentine?</h1>
+    
+    <div id="container">
+        <button id="yes" onclick="expandYes()">Yes</button>
+        <button id="no" onclick="changeNo()">No</button>
+    </div>
+
+    <script>
+        let noTexts = [
+            "Are you sure?", 
+            "Are you REALLY sure?", 
+            "Hmmm", 
+            "Think again",
+            "Last chance!"
+        ];
+        let yesTexts = [
+            "I love youuuu!!!🥰🥰",
+            "Yay!!!💖💖"
+        ];
+        let clickCount = 0;
+        let yesClickCount = 0;
+
+        function changeNo() {
+            let yesBtn = document.getElementById("yes");
+            let noBtn = document.getElementById("no");
+
+            clickCount++;
+
+            // Increase "Yes" button size
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 5) + "px";
+
+            // Change "No" button text
+            if (clickCount <= noTexts.length) {
+                noBtn.textContent = noTexts[clickCount - 1]; // Update text
+            }
+
+            // Shrink "No" button
+            let noSize = parseFloat(window.getComputedStyle(noBtn).fontSize);
+            noBtn.style.fontSize = (noSize - 2) + "px";
+
+            // After 5 clicks, remove "No" button
+            if (clickCount >= noTexts.length) {
+                noBtn.style.display = "none"; 
+            }
+        }
+
+        function expandYes() {
+            let yesBtn = document.getElementById("yes");
+
+            yesClickCount++;
+
+            if (yesClickCount < yesTexts.length) {
+                yesBtn.textContent = yesTexts[yesClickCount];
+            } else {
+                // Expand Yes button to full screen
+                yesBtn.classList.add("full-screen");
+                yesBtn.textContent = "I love youuu!!!🥰";
+                document.body.style.backgroundColor = "#4CAF50"; // Make the whole page green
+            }
+        }
+    </script>
+  <body>
+</body>
+</html>
